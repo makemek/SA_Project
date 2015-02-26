@@ -1,5 +1,6 @@
 package com.makemek.component.movie;
 
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 
 /**
@@ -7,9 +8,9 @@ import java.io.Serializable;
  */
 public class Movie implements Serializable {
     String name;
-    int price;
+    transient int price;
     int id;
-    int quantity;
+    transient int quantity;
 
     public int sell() {
         quantity--;
@@ -26,5 +27,11 @@ public class Movie implements Serializable {
 
     public int getPrice() {
         return price;
+    }
+
+    private Object readResolve() throws ObjectStreamException {
+        price = 0;
+        quantity = 0;
+        return this;
     }
 }
