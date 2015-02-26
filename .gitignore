@@ -1,6 +1,7 @@
-serialized.ser
+*.ser
 *.eml
 *.userlibraries
+src/com/makemek/Invoker/Client.java
 
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template
