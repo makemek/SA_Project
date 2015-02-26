@@ -28,6 +28,11 @@ public class SellCommand implements UndoableCommand {
         mov.quantity = memento.quantity;
     }
 
+    @Override
+    public Object getInvoker() {
+        return mov;
+    }
+
     private class Memento implements Serializable {
         int quantity;
 

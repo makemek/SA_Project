@@ -31,6 +31,11 @@ public class SetPriceCommand implements UndoableCommand {
         mov.setPrice(memento.price);
     }
 
+    @Override
+    public Object getInvoker() {
+        return mov;
+    }
+
     private class Memento implements Serializable {
         private int price;
 

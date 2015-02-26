@@ -44,6 +44,11 @@ public class AddCommand implements UndoableCommand {
                     + mov.hashCode() + "!=" + inventory.mov.get(lastIdx).hashCode());
     }
 
+    @Override
+    public Object getInvoker() {
+        return inventory;
+    }
+
 //    private class Memento implements Serializable {
 //        private List<Movie> lst;
 //

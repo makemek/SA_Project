@@ -5,4 +5,5 @@ package com.makemek.command;
  */
 public interface UndoableCommand extends Command {
     public void undo();
+    public Object getInvoker();
 }
