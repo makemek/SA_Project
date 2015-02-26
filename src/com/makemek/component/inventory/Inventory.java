@@ -3,6 +3,7 @@ package com.makemek.component.inventory;
 
 import com.makemek.component.movie.Movie;
 
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,5 +41,10 @@ public class Inventory implements Serializable {
         public Memento(List<Movie> movies) {
             this.movies = new ArrayList<Movie>(movies);
         }
+    }
+
+    private Object readResolve() throws ObjectStreamException {
+        mov = new ArrayList<Movie>();
+        return this;
     }
 }
