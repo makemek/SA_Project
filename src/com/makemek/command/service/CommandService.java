@@ -10,6 +10,5 @@ public interface CommandService {
     public void storeAndExecute(UndoableCommand cmd);
     public void undo();
     public void redo();
-    public void _import(String filename);
-    public void _export(String filename);
+    public<T> void _export(String filename, T obj);
 }

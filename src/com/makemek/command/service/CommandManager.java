@@ -33,27 +33,38 @@ public class CommandManager implements CommandService {
             cmd.execute();
     }
 
-    @Override
-    public void _import(String filename) {
+    public<T>  T _import(String filename, Class<T> type) {
         try {
-            Iterator<UndoableCommand> it = careTaker.readFromDisk(filename);
+            Iterator<UndoableCommand> it = new CareTaker<UndoableCommand>().readFromDisk(filename);
+
+            // get first commands and execute
+            UndoableCommand cmd = it.next();
+            cmd.execute();
 
             // execute all commands
             while(it.hasNext()) {
                 it.next().execute();
             }
 
+            return type.cast(cmd.getInvoker());
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        throw new ClassCastException("Cannot cast to type: " + type.getName());
     }
 
-    @Override
-    public void _export(String filename) {
+    public<T> void _export(String filename, T obj) {
         try {
-            careTaker.saveToDisk(filename);
+            CareTaker<UndoableCommand> taker = new CareTaker<UndoableCommand>();
+            for(UndoableCommand cmd: careTaker.list)
+                if(cmd.getInvoker() == obj)
+                    taker.save(cmd);
+
+            taker.saveToDisk(filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
